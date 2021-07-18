@@ -1,0 +1,12 @@
+
+.part-graph {
+    flex: 1 1 50%;
+    border: 1px solid black;
+    background-color: #212024;
+}
+
+.sigma-container {
+    height: 450px;
+}
+
+

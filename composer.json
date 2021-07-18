@@ -1,0 +1,20 @@
+{
+    "name": "liamj/event_editor",
+    "type": "project",
+    "authors": [
+        {
+            "name": "00-status",
+            "email": "dedypips@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.4",
+        "slim/twig-view": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "NarrativeEditor\\":"Lib"
+        }
+    }
+}

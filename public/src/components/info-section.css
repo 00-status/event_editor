@@ -1,0 +1,37 @@
+.info-section {
+    flex: 1 1 50%;
+    margin: 0 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+}
+
+.form-label {
+    margin-top: 12px;
+    font-size: 18px;
+}
+.form-text-area {
+    width: 400px;
+    height: 150px;
+    resize: vertical;
+}
+
+.choice-list {
+    margin-top: 20px;
+}
+
+.submit-button:hover {
+    background-color: #0E874F;
+    border: #F3EEF0;
+}
+.submit-button {
+    margin-top: 20px;
+    width: 90px;
+    height: 50px;
+
+    background-color: #0B7142;
+    color: #F3EEF0;
+    border: none;
+}

@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "noUnusedLocals": true,
+        "target": "ES5",
+        "typeRoots": [
+            "node_modules/@types",
+            "public/dist/build/typing"
+        ],
+        "sourceMap": true,
+        "declaration": true,
+        "declarationDir": "./public/build/dist/typing",
+        "lib": [
+            "webworker",
+            "es6",
+            "es5",
+            "dom"
+          ]
+    },
+    "include": [
+        "**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "public/build/*"
+    ]
+}

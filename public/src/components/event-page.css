@@ -1,0 +1,35 @@
+body, button {
+    color: #F3EEF0;
+    font-size: 14px;
+    font-family: 'Mukta', sans-serif;
+}
+input, textarea {
+    font-family: 'Mukta', sans-serif;
+    font-size: 16px;
+    background-color: #212024;
+    color: #F3EEF0;
+    outline: none;
+    border: 1px solid black;
+}
+
+.event-page {
+    width: 80%;
+    margin: auto;
+}
+
+.editor-container {
+    display: flex;
+    flex-direction: row;
+}
+
+/*
+    #212024 - Dark Boi
+    #28272C - Lighter Dude
+    #F3EEF0 - White
+
+    #404375 - Pale Blue
+    #0B7142 - Mint Green
+
+    #C52E34 - Dark Orange
+    #06692E - Dark Green
+*/
