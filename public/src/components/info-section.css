@@ -8,6 +8,12 @@
     align-items: flex-start;
 }
 
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 0 8px;
+}
 .form-label {
     margin-top: 12px;
     font-size: 18px;
@@ -19,7 +25,9 @@
 }
 
 .choice-list {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 16px;
 }
 
 .submit-button:hover {

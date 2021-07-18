@@ -3,7 +3,7 @@ body, button {
     font-size: 14px;
     font-family: 'Mukta', sans-serif;
 }
-input, textarea {
+input, textarea, select {
     font-family: 'Mukta', sans-serif;
     font-size: 16px;
     background-color: #212024;

@@ -1,6 +1,7 @@
-import { Part } from "./fetchEvent";
+import { Choice, Part } from "./fetchEvent";
+import { writeChoices } from "./writeChoices";
 
-const writePosts = (parts: Part[]) => {
+const writePosts = (parts: Part[], choices: Choice[]) => {
     const request = new XMLHttpRequest();
 
     request.open('POST', '/api/1/parts', true);
@@ -8,7 +9,7 @@ const writePosts = (parts: Part[]) => {
     
     request.onreadystatechange = () => {
         if (request.readyState === request.DONE) {
-            window.location.reload(true);
+            writeChoices(choices);
         }
     };
 

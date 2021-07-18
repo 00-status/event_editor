@@ -47,7 +47,7 @@ $app->post('/api/1/parts', function (Request $request, Response $response, $args
     $response->getBody()->write(json_encode(['code' => 200]));
     return $response;
 });
-$app->post('api/1/choices', function (Request $request, Response $response, $args) {
+$app->post('/api/1/choices', function (Request $request, Response $response, $args) {
     $incoming_choices = json_decode($request->getBody(), true);
 
     $choices = array_map(fn(array $choice) => Choice::fromArray($choice), $incoming_choices);

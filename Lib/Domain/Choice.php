@@ -25,10 +25,10 @@ class Choice implements JsonSerializable
     {
         return new Choice(
             $choice['id'],
-            $choice['part_id'],
+            $choice['partId'],
             $choice['title'],
-            $choice['leading_part_id'],
-            $choice['sort_order']
+            $choice['leadingPartId'],
+            $choice['sortOrder']
         );
     }
 

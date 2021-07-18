@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import { fetchEvent, NarrativeEvent, Part } from './api/fetchEvent';
+import { Choice, fetchEvent, NarrativeEvent, Part } from './api/fetchEvent';
 import { writePosts } from './api/writePosts';
 import { EventPage } from './components/EventPage';
 
@@ -19,17 +19,18 @@ new Vue({
         });
     },
     methods: {
-        updateParts(updatedPart: Part) {
+        updateParts(updatedPart: { part: Part, choices: Array<Choice> }) {
             const parts = this.narrativeEvent.parts;
 
             const partsToSave = parts.map((part: Part) => {
-                if (part.id === updatedPart.id) {
-                    return updatedPart;
+                if (part.id === updatedPart.part.id) {
+                    return updatedPart.part;
                 }
 
                 return part;
             });
-            writePosts(partsToSave);
+
+            writePosts(partsToSave, updatedPart.choices);
         }
     }
 });

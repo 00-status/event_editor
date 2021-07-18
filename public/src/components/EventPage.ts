@@ -16,7 +16,8 @@ const template = `
         </part-graph>
         <info-section
             v-if="currentPart"
-            v-bind:part="currentPart"
+            v-bind:currentPart="currentPart"
+            v-bind:parts="narrativeEvent.parts"
             v-on:part-updated="saveParts"
         >
         </info-section>
@@ -28,6 +29,9 @@ const EventPage = {
     template,
     data: () => {
         return { currentPartId: null };
+    },
+    props: {
+        narrativeEvent: { parts: Array, choices: Array }
     },
     computed: {
         currentPart() {
@@ -54,9 +58,6 @@ const EventPage = {
             return { ...currentPart, choices: currentChoices };
         }
     },
-    props: {
-        narrativeEvent: { parts: Array, choices: Array }
-    },
     components: {
         'part-graph': PartGraph,
         'info-section': InfoSection
@@ -65,8 +66,8 @@ const EventPage = {
         setCurrentPartId: function (partId: number) {
             this.currentPartId = partId;
         },
-        saveParts: function (part: Part) {
-            this.$emit('part-updated', part);
+        saveParts: function (updatedPart: { part: Part, choices: Array<Choice> }) {
+            this.$emit('part-updated', updatedPart);
         }
     }
 };

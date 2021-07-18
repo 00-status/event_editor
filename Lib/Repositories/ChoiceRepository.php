@@ -15,7 +15,7 @@ class ChoiceRepository
      */
     public function getChoices(): array
     {
-        $choice_data = json_decode(file_get_contents(self::PATH_TO_CHOICES), true);
+        $choice_data = json_decode(file_get_contents(self::PATH_TO_CHOICES_TEST), true);
         $choices = $this->mapChoiceToObject($choice_data);
 
         return $choices;
