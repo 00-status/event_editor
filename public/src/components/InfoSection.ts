@@ -20,7 +20,7 @@ const template = `
             </select>
         </div>
     </div>
-    <button class="submit-button" v-on:click="updateParts">Save</button>
+    <button v-on:click="updateParts">Save</button>
 </div>
 `;
 

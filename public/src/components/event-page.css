@@ -11,10 +11,38 @@ input, textarea, select {
     outline: none;
     border: 1px solid black;
 }
+button {
+    margin: 8px;
+    width: 100px;
+    height: 50px;
+
+    background-color: #0B7142;
+    color: #F3EEF0;
+    border: none;
+}
+button:hover {
+    background-color: #0E874F;
+    border: #F3EEF0;
+}
+
+.button-cancel:hover {
+    background-color: #7B858A;
+}
+.button-cancel {
+    background-color: #626A6F;
+}
 
 .event-page {
     width: 80%;
     margin: auto;
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+}
+.page-title-button {
+    margin-left: 16px;
 }
 
 .editor-container {

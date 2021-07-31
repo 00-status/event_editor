@@ -9,7 +9,11 @@ const writePosts = (parts: Part[], choices: Choice[]) => {
     
     request.onreadystatechange = () => {
         if (request.readyState === request.DONE) {
-            writeChoices(choices);
+            if (choices.length >= 1) {
+                writeChoices(choices);
+            } else {
+                window.location.reload();
+            }
         }
     };
 

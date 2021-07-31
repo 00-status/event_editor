@@ -8,7 +8,12 @@
 </head>
 <body style="background-color: #28272C">
     <div id="app">
-        <event-page v-on:part-updated="updateParts" v-bind:narrative-event="narrativeEvent" ></event-page>
+        <event-page
+            v-on:part-updated="updateParts"
+            v-on:save-part="savePart"
+            v-bind:narrative-event="narrativeEvent"
+        >
+        </event-page>
     </div>
     <script type="text/javascript" src="./public/build/dist/bundle.js"></script>
 </body>

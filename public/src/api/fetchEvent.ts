@@ -1,4 +1,11 @@
 
+type PartialPart = {
+    id: number|null,
+    eventId: number,
+    title: string,
+    description: string
+};
+
 type Part = {
     id: number,
     eventId: number,
@@ -60,4 +67,4 @@ const mapResponse = (response: any): NarrativeEvent => {
     return { parts: mappedParts, choices: mappedChoices };
 };
 
-export { fetchEvent, NarrativeEvent, Part, Choice };
+export { fetchEvent, NarrativeEvent, PartialPart, Part, Choice };

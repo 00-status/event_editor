@@ -1,11 +1,23 @@
+import '../components/event-page.css';
 import { Part, Choice } from "../api/fetchEvent";
 import { InfoSection } from "./InfoSection";
 import { PartGraph } from "./PartGraph";
-import '../components/event-page.css';
+import { NewPartModal } from "./NewPartModal";
 
 const template = `
 <div class="event-page">
-    <h1>Event Name</h1>
+    <new-part-modal 
+        v-if="showModal"
+        v-on:close="showModal=false"
+        v-on:save-part="savePartFromModal"
+    >
+    </new-part-modal>
+    <div class="page-title">
+        <h1>Event Name</h1>
+        <button class="page-title-button" v-on:click="showModal=true">
+            Add Part + 
+        </button>
+    </div>
     <div class="editor-container">
         <part-graph
             v-if="narrativeEvent.parts.length >= 1"
@@ -28,7 +40,7 @@ const template = `
 const EventPage = {
     template,
     data: () => {
-        return { currentPartId: null };
+        return { currentPartId: null, showModal: false };
     },
     props: {
         narrativeEvent: { parts: Array, choices: Array }
@@ -60,11 +72,24 @@ const EventPage = {
     },
     components: {
         'part-graph': PartGraph,
-        'info-section': InfoSection
+        'info-section': InfoSection,
+        'new-part-modal': NewPartModal
     },
     methods: {
         setCurrentPartId: function (partId: number) {
             this.currentPartId = partId;
+        },
+        savePartFromModal(partialPart: {title: string, description: string}) {
+            const eventId = this.currentPart.eventId;
+
+            const partToSave = {
+                id: null,
+                eventId,
+                title: partialPart.title,
+                description: partialPart.description
+            };
+
+            this.$emit('save-part', partToSave);
         },
         saveParts: function (updatedPart: { part: Part, choices: Array<Choice> }) {
             this.$emit('part-updated', updatedPart);
