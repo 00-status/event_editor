@@ -4,6 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use NarrativeEditor\Domain\Choice;
 use NarrativeEditor\Domain\Part;
+use NarrativeEditor\Services\DeletePartService;
 use NarrativeEditor\Services\ReadEventService;
 use NarrativeEditor\Services\WriteChoicesService;
 use NarrativeEditor\Services\WritePartsService;
@@ -44,8 +45,19 @@ $app->post('/api/1/parts', function (Request $request, Response $response, $args
 
     $service = new WritePartsService();
     $service->writeParts($parts);
+
     $response->getBody()->write(json_encode(['code' => 200]));
     return $response;
+});
+$app->delete('/api/1/part', function (Request $request, Response $response, $args) {
+    $incoming_part = json_decode($request->getBody(), true);
+
+    $part = Part::fromArray($incoming_part);
+
+    $service = new DeletePartService();
+    $service->deletePart($part);
+
+    $response->getBody()->write(json_encode(['code' => 200]));
 });
 $app->post('/api/1/choices', function (Request $request, Response $response, $args) {
     $incoming_choices = json_decode($request->getBody(), true);
