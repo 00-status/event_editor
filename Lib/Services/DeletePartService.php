@@ -14,8 +14,8 @@ class DeletePartService
         $existing_parts = $part_repository->getParts();
 
         // Remove entry from existing parts.
-        $parts_to_save = array_filter($existing_parts, function (Part $part) {
-            return $part->getId() != $part->getId();
+        $parts_to_save = array_filter($existing_parts, function (Part $existing_part) use ($part) {
+            return $existing_part->getId() != $part->getId();
         });
 
         $part_repository->saveParts($parts_to_save);

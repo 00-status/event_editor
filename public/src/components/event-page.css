@@ -11,6 +11,7 @@ input, textarea, select {
     outline: none;
     border: 1px solid black;
 }
+
 button {
     margin: 8px;
     width: 100px;
@@ -24,12 +25,17 @@ button:hover {
     background-color: #0E874F;
     border: #F3EEF0;
 }
-
 .button-cancel:hover {
     background-color: #7B858A;
 }
 .button-cancel {
     background-color: #626A6F;
+}
+.button-danger:hover {
+    background-color: #D53123;
+}
+.button-danger {
+    background-color: #AC2A1F;
 }
 
 .event-page {

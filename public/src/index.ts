@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { deletePart } from './api/deletePart';
 
 import { Choice, fetchEvent, NarrativeEvent, Part, PartialPart } from './api/fetchEvent';
 import { writePosts } from './api/writePosts';
@@ -36,6 +37,9 @@ new Vue({
             });
 
             writePosts(partsToSave, updatedPart.choices);
+        },
+        deletePart(part: Part) {
+            deletePart(part);
         }
     }
 });

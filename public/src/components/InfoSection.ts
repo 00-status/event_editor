@@ -2,6 +2,12 @@ import './info-section.css';
 
 const template = `
 <div class="info-section">
+    <div class="part-editor-title">
+        <h2>Part Editor</h2>
+        <button v-on:click="deletePart" class="button-danger">
+            Delete Part
+        </button>
+    </div>
     <label class="form-label">Title</label>
     <input v-model="currentPart.title" type="text" />
     <label class="form-label">Description</label>
@@ -31,6 +37,16 @@ const InfoSection = {
         parts: Array
     },
     methods: {
+        deletePart() {
+            const part = {
+                id: this.currentPart.id,
+                eventId: this.currentPart.eventId,
+                title: this.currentPart.title,
+                description: this.currentPart.description
+            };
+
+            this.$emit('part-deleted', part);
+        },
         updateParts() {
             const part = {
                 id: this.currentPart.id,

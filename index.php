@@ -58,6 +58,7 @@ $app->delete('/api/1/part', function (Request $request, Response $response, $arg
     $service->deletePart($part);
 
     $response->getBody()->write(json_encode(['code' => 200]));
+    return $response;
 });
 $app->post('/api/1/choices', function (Request $request, Response $response, $args) {
     $incoming_choices = json_decode($request->getBody(), true);

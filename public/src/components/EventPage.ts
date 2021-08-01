@@ -31,6 +31,7 @@ const template = `
             v-bind:currentPart="currentPart"
             v-bind:parts="narrativeEvent.parts"
             v-on:part-updated="saveParts"
+            v-on:part-deleted="deletePart"
         >
         </info-section>
     </div>
@@ -93,6 +94,9 @@ const EventPage = {
         },
         saveParts: function (updatedPart: { part: Part, choices: Array<Choice> }) {
             this.$emit('part-updated', updatedPart);
+        },
+        deletePart(part: Part) {
+            this.$emit('part-deleted', part);
         }
     }
 };
