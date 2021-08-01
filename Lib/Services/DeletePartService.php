@@ -10,6 +10,9 @@ class DeletePartService
     public function deletePart(Part $part)
     {
         $part_repository = new PartRepository();
+        $delete_choice_service = new DeleteChoiceService();
+
+        $delete_choice_service->deleteChoiceByPartId($part->getId());
 
         $existing_parts = $part_repository->getParts();
 
