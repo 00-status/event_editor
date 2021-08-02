@@ -1,3 +1,4 @@
+import { deleteChoice } from '../api/deleteChoice';
 import './info-section.css';
 
 const template = `
@@ -12,7 +13,7 @@ const template = `
     <input v-model="currentPart.title" type="text" />
     <label class="form-label">Description</label>
     <textarea class="form-text-area" v-model="currentPart.description" type="test" />
-    <div class="choice-list" v-for="choice in choices" :key="choice.key">
+    <div class="choice-list" v-for="choice in choices" :key="choice.id">
         <div class="form-group">
             <label class="form-label">Choice Name</label>
             <input v-model="choice.title" type="text" />
@@ -26,7 +27,7 @@ const template = `
             </select>
         </div>
         <div>
-            <button class="button-danger button-sm" v-on:click="deleteChoice(choice.key)">Delete</button>
+            <button class="button-danger button-sm" v-on:click="$emit('choice-deleted', choice.key)">Delete</button>
         </div>
     </div>
     <button class="button-neutral" v-on:click="addChoice">Add Choice</button>
@@ -36,21 +37,10 @@ const template = `
 
 const InfoSection = {
     template,
-    data: () => {
-        return { choices: [] };
-    },
     props: {
+        choices: Array,
         currentPart: Object,
         parts: Array
-    },
-    mounted() {
-        this.choices = this.currentPart.choices.map((choice) => {
-            if (!choice.key) {
-                return { key: Math.random()*10000, ...choice };
-            }
-
-            return choice;
-        });
     },
     methods: {
         updateParts() {
@@ -78,22 +68,14 @@ const InfoSection = {
             this.$emit('part-deleted', part);
         },
         addChoice() {
-            this.choices.push(
-                {
-                    id: null,
-                    key: Math.random()*1000,
-                    partId: this.currentPart.id,
-                    title: '',
-                    leadingPartId: null,
-                    sortOrder: 0
-                }
-            );
-        },
-        deleteChoice(key: number) {
-            const indexToRemove = this.choices.findIndex((choice) => {
-                return choice.key === key;
+            this.$emit('choice-added', {
+                id: null,
+                key: Math.random()*1000,
+                partId: this.currentPart.id,
+                title: '',
+                leadingPartId: null,
+                sortOrder: 0
             });
-            this.choices.splice(indexToRemove, 1);
         }
     }
 };

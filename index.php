@@ -4,6 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use NarrativeEditor\Domain\Choice;
 use NarrativeEditor\Domain\Part;
+use NarrativeEditor\Services\DeleteChoiceService;
 use NarrativeEditor\Services\DeletePartService;
 use NarrativeEditor\Services\ReadEventService;
 use NarrativeEditor\Services\WriteChoicesService;
@@ -69,6 +70,15 @@ $app->post('/api/1/choices', function (Request $request, Response $response, $ar
     $service->writeChoices($choices);
     $response->getBody()->write(json_encode(['code' => 200]));
     return $response;
+});
+$app->delete('/api/1/choice', function (Request $request, Response $response) {
+    $incoming_choice = json_decode($request->getBody(), true);
+
+    $choice = Choice::fromArray($incoming_choice);
+
+    $service = new DeleteChoiceService();
+    $service->deleteChoice($choice);
+    return $response->getBody()->write(json_encode(['code' => 200]));
 });
 
 $app->run();

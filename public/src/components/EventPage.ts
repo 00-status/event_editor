@@ -3,6 +3,7 @@ import { Part, Choice } from "../api/fetchEvent";
 import { InfoSection } from "./InfoSection";
 import { PartGraph } from "./PartGraph";
 import { NewPartModal } from "./NewPartModal";
+import { deleteChoice } from '../api/deleteChoice';
 
 const template = `
 <div class="event-page">
@@ -29,9 +30,12 @@ const template = `
         <info-section
             v-if="currentPart"
             v-bind:currentPart="currentPart"
+            v-bind:choices="currentChoices"
             v-bind:parts="narrativeEvent.parts"
             v-on:part-updated="saveParts"
             v-on:part-deleted="deletePart"
+            v-on:choice-added="addChoice"
+            v-on:choice-deleted="deleteChoice"
         >
         </info-section>
     </div>
@@ -41,7 +45,11 @@ const template = `
 const EventPage = {
     template,
     data: () => {
-        return { currentPartId: null, showModal: false };
+        return {
+            currentPartId: null,
+            showModal: false,
+            currentChoices: []
+        };
     },
     props: {
         narrativeEvent: { parts: Array, choices: Array }
@@ -64,11 +72,7 @@ const EventPage = {
                 return null;
             }
 
-            const currentChoices = this.narrativeEvent.choices.filter((choice: Choice) => {
-                return choice.partId == this.currentPartId;
-            });
-
-            return { ...currentPart, choices: currentChoices };
+            return { ...currentPart };
         }
     },
     components: {
@@ -79,6 +83,16 @@ const EventPage = {
     methods: {
         setCurrentPartId: function (partId: number) {
             this.currentPartId = partId;
+
+            const currentChoices = this.narrativeEvent.choices
+                .filter((choice: Choice) => {
+                return choice.partId == this.currentPartId;
+                })
+                .map(function (choice: Choice) {
+                    return { key: Math.random()*1000, ...choice };
+                });
+
+            this.currentChoices = currentChoices;
         },
         savePartFromModal(partialPart: {title: string, description: string}) {
             const eventId = this.currentPart.eventId;
@@ -97,6 +111,29 @@ const EventPage = {
         },
         deletePart(part: Part) {
             this.$emit('part-deleted', part);
+        },
+        addChoice(choice) {
+            this.currentChoices.push(choice);
+        },
+        deleteChoice(choiceKey: number) {
+            const indexToRemove = this.currentChoices.findIndex((choice) => {
+                return choice.key === choiceKey;
+            });
+            const choiceToDelete = this.currentChoices[indexToRemove];
+
+            if (choiceToDelete.id && choiceToDelete.leadingPartId) {
+                deleteChoice(
+                    {
+                        id: choiceToDelete.id,
+                        partId: choiceToDelete.partId,
+                        title: choiceToDelete.title,
+                        leadingPartId: choiceToDelete.leadingPartId,
+                        sortOrder: choiceToDelete.sortOrder
+                    }
+                );
+            }
+
+            this.currentChoices.splice(indexToRemove, 1);
         }
     }
 };
