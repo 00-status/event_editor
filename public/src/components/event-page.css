@@ -13,7 +13,6 @@ input, textarea, select {
 }
 
 button {
-    margin: 8px;
     width: 100px;
     height: 50px;
 
@@ -25,10 +24,14 @@ button:hover {
     background-color: #0E874F;
     border: #F3EEF0;
 }
-.button-cancel:hover {
+.button-sm {
+    width: 60px;
+    height: 30px;
+}
+.button-neutral:hover {
     background-color: #7B858A;
 }
-.button-cancel {
+.button-neutral {
     background-color: #626A6F;
 }
 .button-danger:hover {

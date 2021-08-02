@@ -18,7 +18,7 @@ const template = `
                 </div>
                 <div class="modal-footer">
                     <div>
-                        <button class="button-cancel" v-on:click="$emit('close')">
+                        <button class="button-neutral" v-on:click="$emit('close')">
                             Close
                         </button>
                         <button v-on:click="$emit('save-part', { title: partTitle, description: partDescription })">

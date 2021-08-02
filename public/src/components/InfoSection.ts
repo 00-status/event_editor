@@ -12,9 +12,9 @@ const template = `
     <input v-model="currentPart.title" type="text" />
     <label class="form-label">Description</label>
     <textarea class="form-text-area" v-model="currentPart.description" type="test" />
-    <div class="choice-list" v-for="choice in currentPart.choices" :key="choice.id">
+    <div class="choice-list" v-for="choice in choices" :key="choice.key">
         <div class="form-group">
-            <label class="form-label" >Choice Name</label>
+            <label class="form-label">Choice Name</label>
             <input v-model="choice.title" type="text" />
         </div>
         <div class="form-group">
@@ -25,18 +25,48 @@ const template = `
                 </option>
             </select>
         </div>
+        <div>
+            <button class="button-danger button-sm" v-on:click="deleteChoice(choice.key)">Delete</button>
+        </div>
     </div>
-    <button v-on:click="updateParts">Save</button>
+    <button class="button-neutral" v-on:click="addChoice">Add Choice</button>
+    <button class="part-editor-save" v-on:click="updateParts">Save</button>
 </div>
 `;
 
 const InfoSection = {
     template,
+    data: () => {
+        return { choices: [] };
+    },
     props: {
         currentPart: Object,
         parts: Array
     },
+    mounted() {
+        this.choices = this.currentPart.choices.map((choice) => {
+            if (!choice.key) {
+                return { key: Math.random()*10000, ...choice };
+            }
+
+            return choice;
+        });
+    },
     methods: {
+        updateParts() {
+            const part = {
+                id: this.currentPart.id,
+                eventId: this.currentPart.eventId,
+                title: this.currentPart.title,
+                description: this.currentPart.description
+            };
+            const choices = this.choices.filter(choice => choice.title && choice.leadingPartId);
+
+            this.$emit('part-updated', {
+                part,
+                choices: choices
+            });
+        },
         deletePart() {
             const part = {
                 id: this.currentPart.id,
@@ -47,17 +77,23 @@ const InfoSection = {
 
             this.$emit('part-deleted', part);
         },
-        updateParts() {
-            const part = {
-                id: this.currentPart.id,
-                eventId: this.currentPart.eventId,
-                title: this.currentPart.title,
-                description: this.currentPart.description
-            };
-            this.$emit('part-updated', {
-                part,
-                choices: this.currentPart.choices
+        addChoice() {
+            this.choices.push(
+                {
+                    id: null,
+                    key: Math.random()*1000,
+                    partId: this.currentPart.id,
+                    title: '',
+                    leadingPartId: null,
+                    sortOrder: 0
+                }
+            );
+        },
+        deleteChoice(key: number) {
+            const indexToRemove = this.choices.findIndex((choice) => {
+                return choice.key === key;
             });
+            this.choices.splice(indexToRemove, 1);
         }
     }
 };

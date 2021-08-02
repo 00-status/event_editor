@@ -12,6 +12,9 @@
 .part-editor-title {
     display: flex;
 }
+.part-editor-save {
+    margin: 12px 0;
+}
 
 .form-group {
     display: flex;
@@ -31,5 +34,6 @@
 .choice-list {
     display: flex;
     flex-direction: row;
+    align-items: flex-end;
     margin-top: 16px;
 }
